@@ -34,16 +34,5 @@
 </template>
 
 <style>
-#rl {
-  color: #ffffff;
-}
-
-.navbar-top {
-  width: 100%;
-  border-bottom: 1px solid #c8ced3;
-}
-
-b-nav-item-dropdown {
-  color: #ffffff;
-}
+  @import url("./../../statics/navbar.css");
 </style>

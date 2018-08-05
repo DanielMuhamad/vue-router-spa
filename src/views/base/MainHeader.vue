@@ -7,10 +7,6 @@
 </template>
 
 <style>
-.main-header {
-  border-bottom: 1px solid #c8ced3;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+    @import url("./../../statics/main-header.css");
 </style>
 

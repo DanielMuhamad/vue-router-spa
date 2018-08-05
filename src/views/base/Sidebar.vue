@@ -21,7 +21,7 @@
               <fa-icon class="faicon" icon="user"></fa-icon> Login
             </router-link>
           </li>
-
+  
           <li id="li">
             <router-link id="rl" to="/movie">
               <fa-icon class="faicon" icon="cogs"></fa-icon> Movie
@@ -34,33 +34,5 @@
 </template>
 
 <style>
-.sidebar {
-  display: flex;
-  position: fixed;
-  height: 100%;
-  width: 230px;
-  background-color: #282d31;
-}
-
-#li {
-  margin: 0;
-  line-height: 40px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-#rl {
-  text-decoration: none;
-  font-family: fantasy;
-  font-size: 14px;
-}
-
-li {
-  list-style-type: none;
-}
-
-.faicon {
-  padding-right: 2px;
-}
+  @import url("./../../statics/sidebar.css");
 </style>

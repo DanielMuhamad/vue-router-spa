@@ -1,0 +1,12 @@
+.content-col {
+    overflow: hidden;
+    margin-top: 55px;
+    background-color: #e3e4e5;
+}
+
+.app-header {
+    position: fixed;
+    z-index: 1020;
+    width: 100%;
+    background-color: #ffffff;
+}
