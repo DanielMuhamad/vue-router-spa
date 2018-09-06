@@ -34,5 +34,5 @@
 </template>
 
 <style>
-  @import url("./../../statics/navbar.css");
+  @import url("./../../statics/css/navbar.css");
 </style>

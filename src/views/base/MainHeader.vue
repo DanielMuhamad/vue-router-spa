@@ -7,6 +7,6 @@
 </template>
 
 <style>
-    @import url("./../../statics/main-header.css");
+    @import url("./../../statics/css/main-header.css");
 </style>
 

@@ -1,6 +1,7 @@
 <template>
   <b-row class="justify-content-center">
     <b-col md="4">
+      <br>
       <b-card-group>
         <b-card title="Movie form">
           <b-card-body>
@@ -29,8 +30,9 @@
         </b-card>
       </b-card-group>
     </b-col>
-  
+
     <b-col md="8">
+      <br>
       <b-card-group>
         <b-card title="Movie list">
           <b-table :fields="fields" :items="movies">
@@ -41,104 +43,108 @@
           </b-table>
         </b-card>
       </b-card-group>
+
+      <li>
+        <ul>{{ movies }}</ul>
+      </li>
     </b-col>
   </b-row>
 </template>
 
 <script>
-  import axios from "axios";
-  
-  const list_url = "http://127.0.0.1:8000/service/movie/list";
-  const add_url = "http://127.0.0.1:8000/service/movie/create";
-  const delete_url = "http://127.0.0.1:8000/service/movie/delete/";
-  const update_url = "http://127.0.0.1:8000/service/movie/update/";
-  
-  export default {
-    data() {
-      return {
-        fields: [{
-            key: "id",
-            label: "ID"
-          },
-          {
-            key: "title",
-            label: "TITLE"
-          },
-          {
-            key: "genre",
-            label: "GENRE"
-          },
-          {
-            key: "year",
-            label: "YEAR"
-          },
-          {
-            key: "author",
-            label: "AUTHOR"
-          },
-          {
-            key: "action",
-            label: "ACTION"
-          }
-        ],
-        movies: [],
-        mode: "add",
-        form: {
-          title: "",
-          genre: "",
-          year: "",
-          author: ""
+import axios from "axios";
+
+const list_url = "http://127.0.0.1:8000/service/movie/list";
+const add_url = "http://127.0.0.1:8000/service/movie/create";
+const delete_url = "http://127.0.0.1:8000/service/movie/delete/";
+const update_url = "http://127.0.0.1:8000/service/movie/update/";
+
+export default {
+  data() {
+    return {
+      fields: [
+        {
+          key: "id",
+          label: "ID"
+        },
+        {
+          key: "title",
+          label: "TITLE"
+        },
+        {
+          key: "genre",
+          label: "GENRE"
+        },
+        {
+          key: "year",
+          label: "YEAR"
+        },
+        {
+          key: "author",
+          label: "AUTHOR"
+        },
+        {
+          key: "action",
+          label: "ACTION"
         }
+      ],
+      movies: [],
+      mode: "add",
+      form: {
+        title: "",
+        genre: "",
+        year: "",
+        author: ""
+      }
+    };
+  },
+
+  mounted() {
+    this.loadData();
+  },
+
+  methods: {
+    loadData: function() {
+      axios.get(list_url).then(response => (this.movies = response.data));
+    },
+
+    addData: function() {
+      axios
+        .post(add_url, this.form)
+        .then(response => (this.movies = response.data));
+    },
+
+    editData: function(movie) {
+      this.mode = "edit";
+      this.form.id = movie.id;
+      this.form.title = movie.title;
+      this.form.genre = movie.genre;
+      this.form.year = movie.year;
+      this.form.author = movie.author;
+    },
+
+    resetData: function() {
+      this.mode = "add";
+      this.form = {
+        title: "",
+        genre: "",
+        year: "",
+        author: ""
       };
     },
-  
-    mounted() {
+
+    updateData: function() {
+      axios.post(update_url + this.form.id, this.form);
+      this.mode = "add";
+      this.movies = [];
       this.loadData();
     },
-  
-    methods: {
-      loadData: function() {
-        axios
-          .get(list_url)
-          .then(response => (this.movies = response.data))
-      },
-  
-      addData: function() {
-        axios.post(add_url, this.form).then(response =>
-          (this.movies = response.data));
-      },
-  
-      editData: function(movie) {
-        this.mode="edit"
-        this.form.id = movie.id
-        this.form.title = movie.title
-        this.form.genre = movie.genre
-        this.form.year = movie.year
-        this.form.author = movie.author
-      },
 
-      resetData: function() {
-        this.mode = "add"
-        this.form = {
-          title: "",
-          genre: "",
-          year: "",
-          author: ""
-        }
-      },  
-
-      updateData: function() {
-        axios.post(update_url + this.form.id, this.form)
-        this.mode = "add"
-        this.movies = []
-        this.loadData()
-      },
-  
-      deleteData: function(index, id) {
-        axios.get(delete_url + id).then(this.movies.splice(index, 1))
-      }
+    deleteData: function(index, id) {
+      axios.get(delete_url + id).then(this.movies.splice(index, 1));
     }
-  };
+  }
+};
 </script>
 
 <style>
